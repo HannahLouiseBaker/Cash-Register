@@ -1,1 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cash Register</title>
+    <script type="text/JavaScript">
+    let cashRegister = () => {
+      let price = parseFloat(document.getElementById("item-price").value).toFixed(2);
+      let cash = parseFloat(document.getElementById("money-given").value).toFixed(2);
+      let cid = [["CENT", Number(parseFloat(document.getElementById("cent").value).toFixed(2))], ["NICKEL", Number(parseFloat(document.getElementById("nickel").value).toFixed(2))], ["DIME", Number(parseFloat(document.getElementById("dime").value).toFixed(2))],
+      ["QUARTER", Number(parseFloat(document.getElementById("quarter").value).toFixed(2))], ["ONE", Number(parseFloat(document.getElementById("one").value).toFixed(2))], ["FIVE", Number(parseFloat(document.getElementById("five").value).toFixed(2))],
+      ["TEN", Number(parseFloat(document.getElementById("ten").value).toFixed(2))], ["TWENTY", Number(parseFloat(document.getElementById("twenty").value).toFixed(2))], ["ONE HUNDRED", Number(parseFloat(document.getElementById("one-hundred").value).toFixed(2))]];
+      //Create copy of cid so that the original doesn't get changed
+      //https://medium.com/better-programming/3-ways-to-clone-objects-in-javascript-f752d148054d
+      function jsonCopy(src) {
+        return JSON.parse(JSON.stringify(src));
+      }
 
+      let cidCopy = jsonCopy(cid);
+
+      //Multiply amounts by 100 to avoid issues with decimal math
+      cidCopy.map(function(x) {
+        x[1] = parseFloat((x[1]*100).toFixed(0));
+        return x;
+      });
+
+      //Create an object to be returned at end
+      let finalObj = {
+        status: "",
+        change: []
+      };
+
+      //Find out how much change is in the drawer (*100)
+      let totalCID = 0;
+      cidCopy.forEach(function(x) {
+        return totalCID += x[1];
+      });
+
+      //Work out how much change is due * 100
+      let amountDue = (cash*100) - (price*100);
+      let amountDue2 = parseInt(amountDue);
+
+      //Create an array for the change due, in the final format you need
+      let changeDue = [["ONE HUNDRED", 0], ["TWENTY", 0], ["TEN", 0], ["FIVE", 0], ["ONE", 0], ["QUARTER", 0], ["DIME", 0], ["NICKEL", 0], ["PENNY", 0]];
+
+      //Function to add to changeDue and subtract from cidCopy
+      let addToChange = function() {
+        if (amountDue2 <= 0) {
+          return;
+        }
+
+        if (amountDue2 >= 10000 && cidCopy[8][1] > 0) {
+          console.log('Needs some more work(1)');
+        } else if (amountDue2 >= 2000 && cidCopy[7][1] > 0) {
+          amountDue2 -= 2000;
+          cidCopy[7][1] -= 2000;
+          changeDue[1][1] += 2000;
+          return addToChange(amountDue2);
+        } else if (amountDue2 >= 1000 && cidCopy[6][1] > 0) {
+          amountDue2 -= 1000;
+          cidCopy[6][1] -= 1000;
+          changeDue[2][1] += 1000;
+          return addToChange(amountDue2);
+        } else if (amountDue2 >= 500 && cidCopy[5][1] > 0) {
+          amountDue2 -= 500;
+          cidCopy[5][1] -= 500;
+          changeDue[3][1] += 500;
+          return addToChange(amountDue2);
+        } else if (amountDue2 >= 100 && cidCopy[4][1] > 0) {
+          amountDue2 -= 100;
+          cidCopy[4][1] -= 100;
+          changeDue[4][1] += 100;
+          return addToChange(amountDue2);
+        } else if (amountDue2 >= 25 && cidCopy[3][1] > 0) {
+          amountDue2 -= 25;
+          cidCopy[3][1] -= 25;
+          changeDue[5][1] += 25;
+          return addToChange(amountDue2);
+        } else if (amountDue2 >= 10 && cidCopy[2][1] > 0) {
+          amountDue2 -= 10;
+          cidCopy[2][1] -= 10;
+          changeDue[6][1] += 10;
+          return addToChange(amountDue2);
+        } else if (amountDue2 >= 5 && cidCopy[1][1] > 0) {
+          amountDue2 -= 5;
+          cidCopy[1][1] -= 5;
+          changeDue[7][1] += 5;
+          return addToChange(amountDue2);
+        } else if (amountDue2 >= 1 && cidCopy[0][1] > 0) {
+          amountDue2 -= 1;
+          cidCopy[0][1] -= 1;
+          changeDue[8][1] += 1;
+          return addToChange(amountDue2);
+        }
+      }
+
+      addToChange(amountDue2);
+
+      //Divide amounts by 100
+      changeDue.map(function(x) {
+        x[1] = parseFloat((x[1]/100).toFixed(2));
+        return x;
+      });
+
+      //Remove zeros from changeDue and add to finalChange array
+      let finalChange = [];
+      changeDue.forEach(function(x) {
+        if (x[1] > 0) {
+          return finalChange.push(x);
+        }
+      });
+
+      //Tell customer to give more cash, if applicable
+      if ((cash*100 - price*100) < 0) {
+        return (alert('You have given insufficient cash.'));
+      }
+      //Change status to 'INSUFFICIENT_FUNDS', if applicable
+      else if (amountDue > totalCID || amountDue2 > 0) {
+        return (alert('There is not enough cash in the till to give change, or we are unable to give you the correct change.'));
+      }
+      //Change status to "CLOSED", if applicable
+      else if (amountDue === totalCID) {
+        return (alert('Here is your change ' + finalChange + 'Our till is now empty.'));
+      }
+      //Change status to "OPEN" and return change, if applicable
+      else if ((cash*100 - price*100) < totalCID){
+        return (alert('Here is your change: ' + finalChange));
+      }
+    }
+    </script>
+  </head>
+
+  <body>
+    <header>
+      <h1>Mrs Lovell's Greengrocers</h1>
+    </header>
+    <main>
+      <form>
+        <label for="item-price">Price of Item(s): </label>
+        <input id="item-price" type="text"/>
+        <br/>
+        <label for="money-given">Money Given to Shop Keeper:</label>
+        <input id="money-given" type="text"/>
+        <p>Money in Cash Register Drawer:</p>
+        <label for="cent">Cent: </label>
+        <input id="cent" type="text" placeholder="0.01"/>
+        <br/>
+        <label for="nickel">Nickel: </label>
+        <input id="nickel" type="text" placeholder="0.05"/>
+        <br/>
+        <label for="dime">Dime: </label>
+        <input id="dime" type="text" placeholder="0.10"/>
+        <br/>
+        <label for="quarter">Quarter: </label>
+        <input id="quarter" type="text" placeholder="0.25"/>
+        <br/>
+        <label for="one">One Dollar Bill: </label>
+        <input id="one" type="text" placeholder="1"/>
+        <br/>
+        <label for="five">Five Dollar Bill: </label>
+        <input id="five" type="text" placeholder="5"/>
+        <br/>
+        <label for="ten">Ten Dollar Bill: </label>
+        <input id="ten" type="text" placeholder="10"/>
+        <br/>
+        <label for="twenty">Twenty Dollar Bill: </label>
+        <input id="twenty" type="text" placeholder="20"/>
+        <br/>
+        <label for="one-hundred">One Hundred Dollar Bill: </label>
+        <input id="one-hundred" type="text"/ placeholder="100">
+        <br/>
+        <input type="button" id="button" value="Get Change" onclick="cashRegister()"/>
+      </form>
+    </main>
+  </body>
+</html>
