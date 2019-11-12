@@ -6,9 +6,9 @@
     let cashRegister = () => {
       let price = parseFloat(document.getElementById("item-price").value).toFixed(2);
       let cash = parseFloat(document.getElementById("money-given").value).toFixed(2);
-      let cid = [["CENT", Number(parseFloat(document.getElementById("cent").value).toFixed(2))], ["NICKEL", Number(parseFloat(document.getElementById("nickel").value).toFixed(2))], ["DIME", Number(parseFloat(document.getElementById("dime").value).toFixed(2))],
-      ["QUARTER", Number(parseFloat(document.getElementById("quarter").value).toFixed(2))], ["ONE", Number(parseFloat(document.getElementById("one").value).toFixed(2))], ["FIVE", Number(parseFloat(document.getElementById("five").value).toFixed(2))],
-      ["TEN", Number(parseFloat(document.getElementById("ten").value).toFixed(2))], ["TWENTY", Number(parseFloat(document.getElementById("twenty").value).toFixed(2))], ["ONE HUNDRED", Number(parseFloat(document.getElementById("one-hundred").value).toFixed(2))]];
+      let cid = [["PENNY", Number(parseFloat(document.getElementById("penny").value).toFixed(2))], ["5p COIN", Number(parseFloat(document.getElementById("5p").value).toFixed(2))], ["10p COIN", Number(parseFloat(document.getElementById("10p").value).toFixed(2))],
+      ["20p COIN", Number(parseFloat(document.getElementById("20p").value).toFixed(2))], ["£1 COIN", Number(parseFloat(document.getElementById("one").value).toFixed(2))], ["£5 NOTE", Number(parseFloat(document.getElementById("five").value).toFixed(2))],
+      ["£10 NOTE", Number(parseFloat(document.getElementById("ten").value).toFixed(2))], ["£20 NOTE", Number(parseFloat(document.getElementById("twenty").value).toFixed(2))], ["£100 NOTE", Number(parseFloat(document.getElementById("one-hundred").value).toFixed(2))]];
       //Create copy of cid so that the original doesn't get changed
       //https://medium.com/better-programming/3-ways-to-clone-objects-in-javascript-f752d148054d
       function jsonCopy(src) {
@@ -40,7 +40,7 @@
       let amountDue2 = parseInt(amountDue);
 
       //Create an array for the change due, in the final format you need
-      let changeDue = [["ONE HUNDRED", 0], ["TWENTY", 0], ["TEN", 0], ["FIVE", 0], ["ONE", 0], ["QUARTER", 0], ["DIME", 0], ["NICKEL", 0], ["PENNY", 0]];
+      let changeDue = [["£100 NOTE", 0], ["£20 NOTE", 0], ["£10 NOTE", 0], ["£5 NOTE", 0], ["£1 COIN", 0], ["20p COIN", 0], ["10p COIN", 0], ["5p COIN", 0], ["PENNY", 0]];
 
       //Function to add to changeDue and subtract from cidCopy
       let addToChange = function() {
@@ -70,10 +70,10 @@
           cidCopy[4][1] -= 100;
           changeDue[4][1] += 100;
           return addToChange(amountDue2);
-        } else if (amountDue2 >= 25 && cidCopy[3][1] > 0) {
-          amountDue2 -= 25;
-          cidCopy[3][1] -= 25;
-          changeDue[5][1] += 25;
+        } else if (amountDue2 >= 20 && cidCopy[3][1] > 0) {
+          amountDue2 -= 20;
+          cidCopy[3][1] -= 20;
+          changeDue[5][1] += 20;
           return addToChange(amountDue2);
         } else if (amountDue2 >= 10 && cidCopy[2][1] > 0) {
           amountDue2 -= 10;
@@ -126,49 +126,80 @@
         return (alert('Here is your change: ' + finalChange));
       }
     }
+
+    let generatePrice = () => {
+      document.getElementById("item-price").value = (Math.random() * 100).toFixed(2);
+    }
+
+    let generateCash = () => {
+      document.getElementById("penny").value = (Math.random()).toFixed(2);
+      document.getElementById("5p").value = (Math.floor(Math.random() * 10) * 0.05).toFixed(2);
+      document.getElementById("10p").value = (Math.floor(Math.random() * 10) * 0.10).toFixed(2);
+      document.getElementById("20p").value = (Math.floor(Math.random() * 10) * 0.20).toFixed(2);
+      document.getElementById("one").value = (Math.floor(Math.random() * 10));
+      document.getElementById("five").value = (Math.floor(Math.random() * 10) * 5);
+      document.getElementById("ten").value = (Math.floor(Math.random() * 10) * 10);
+      document.getElementById("twenty").value = (Math.floor(Math.random() * 10) * 20);
+      document.getElementById("one-hundred").value = (Math.floor(Math.random() * 10) * 100);
+
+    }
+
     </script>
   </head>
 
   <body>
     <header>
       <h1>Mrs Lovell's Greengrocers</h1>
+      <p>Welcome to Mrs Lovell's Greengrocers!</p>
+      <ol>
+        <li>Fill up your basket with fresh fruit and veg</li>
+        <li>Play the part of the shopkeeper by entering the total price of the items in your basket (click 'Generate' or enter an amount yourself)</li>
+        <li>Give the shopkeeper your money</li>
+        <li>Play the part of the shopkeeper by making sure there's money in the cash register drawer (click 'Generate' or enter the amounts yourself)</li>
+        <li>The friendly shopkeeper will give you your change!</li>
+      </ol>
+      <p>Thank you for shopping at Mrs Lovell's Greengrocers!</p>
     </header>
     <main>
       <form>
-        <label for="item-price">Price of Item(s): </label>
-        <input id="item-price" type="text"/>
+        <label for="item-price">Total Price of Item(s) in Basket: </label>
+        <input id="item-price" type="text" placeholder="13.34"/>
+        <br/>
+        <input type="button" id="generate-price" class="button" value="Generate" onclick="generatePrice()"/>
         <br/>
         <label for="money-given">Money Given to Shop Keeper:</label>
-        <input id="money-given" type="text"/>
+        <input id="money-given" type="text" placeholder="20"/>
         <p>Money in Cash Register Drawer:</p>
-        <label for="cent">Cent: </label>
-        <input id="cent" type="text" placeholder="0.01"/>
+        <label for="penny">Penny: </label>
+        <input id="penny" type="text" placeholder="£0.01"/>
         <br/>
-        <label for="nickel">Nickel: </label>
-        <input id="nickel" type="text" placeholder="0.05"/>
+        <label for="5p">5p Coin: </label>
+        <input id="5p" type="text" placeholder="£0.05"/>
         <br/>
-        <label for="dime">Dime: </label>
-        <input id="dime" type="text" placeholder="0.10"/>
+        <label for="10p">10p Coin: </label>
+        <input id="10p" type="text" placeholder="£0.10"/>
         <br/>
-        <label for="quarter">Quarter: </label>
-        <input id="quarter" type="text" placeholder="0.25"/>
+        <label for="20p">20p Coin: </label>
+        <input id="20p" type="text" placeholder="£0.20"/>
         <br/>
-        <label for="one">One Dollar Bill: </label>
-        <input id="one" type="text" placeholder="1"/>
+        <label for="one">£1 Coin: </label>
+        <input id="one" type="text" placeholder="£1"/>
         <br/>
-        <label for="five">Five Dollar Bill: </label>
-        <input id="five" type="text" placeholder="5"/>
+        <label for="five">£5 Note: </label>
+        <input id="five" type="text" placeholder="£5"/>
         <br/>
-        <label for="ten">Ten Dollar Bill: </label>
-        <input id="ten" type="text" placeholder="10"/>
+        <label for="ten">£10 Note: </label>
+        <input id="ten" type="text" placeholder="£10"/>
         <br/>
-        <label for="twenty">Twenty Dollar Bill: </label>
-        <input id="twenty" type="text" placeholder="20"/>
+        <label for="twenty">£20 Note: </label>
+        <input id="twenty" type="text" placeholder="£20"/>
         <br/>
-        <label for="one-hundred">One Hundred Dollar Bill: </label>
-        <input id="one-hundred" type="text"/ placeholder="100">
+        <label for="one-hundred">£100 Note: </label>
+        <input id="one-hundred" type="text"/ placeholder="£100">
         <br/>
-        <input type="button" id="button" value="Get Change" onclick="cashRegister()"/>
+        <input type="button" id="generate-cash" class="button" value="Generate" onclick="generateCash()"/>
+        <br/>
+        <input type="button" id="get-change" class="button" value="Get Change" onclick="cashRegister()"/>
       </form>
     </main>
   </body>
