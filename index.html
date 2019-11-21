@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Cash Register</title>
+    <link href="StyleSheet.css" type="text/css" rel="stylesheet"/>
     <script type="text/JavaScript">
     let cashRegister = () => {
       let price = parseFloat(document.getElementById("item-price").value).toFixed(2);
@@ -148,7 +149,8 @@
   </head>
 
   <body>
-    <header>
+    <main>
+      <div id="form-container">
       <h1>Mrs Lovell's Greengrocers</h1>
       <p>Welcome to Mrs Lovell's Greengrocers!</p>
       <ol>
@@ -159,8 +161,6 @@
         <li>The friendly shopkeeper will give you your change!</li>
       </ol>
       <p>Thank you for shopping at Mrs Lovell's Greengrocers!</p>
-    </header>
-    <main>
       <form>
         <label for="item-price">Total Price of Item(s) in Basket: </label>
         <input id="item-price" type="text" placeholder="13.34"/>
@@ -201,6 +201,10 @@
         <br/>
         <input type="button" id="get-change" class="button" value="Get Change" onclick="cashRegister()"/>
       </form>
+      </div>
+      <div id="background">
+        <img id="background-photo" src="background4.jpg"/>
+      </div>
     </main>
   </body>
 </html>
