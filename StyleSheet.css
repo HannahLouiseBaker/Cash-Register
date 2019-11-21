@@ -1,1 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+}
 
+main {
+  display: grid;
+  grid-template-rows: 1fr;
+}
+
+h1 {
+  text-align: center;
+}
+
+#background {
+  grid-area: 1 / 1 / 2 / 2;
+}
+
+#background-photo {
+  /*Can you get this to sit at the bottom of the page? With background4*/
+  /*margin: auto;
+  width: 100%;*/
+  /*This is with background3 - but it gets distorted*/
+  width: 100%;
+  height: 100vh;
+}
+
+#form-container {
+  grid-area: 1 / 1 / 2 / 2;
+  z-index: 2;
+}
