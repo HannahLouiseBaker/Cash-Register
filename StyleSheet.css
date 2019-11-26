@@ -7,9 +7,29 @@ main {
   display: grid;
   grid-template-rows: 1fr;
   justify-content: center;
+  background-color: #D2E4E8;
 }
 
-h1, ul, .center {
+@font-face {
+  font-family: "Lumiera";
+  src: url(Lumiera.ttf) format('truetype');
+}
+
+h1 {
+  font-family: "Lumiera";
+  font-size: 46px;
+  line-height: 48px;
+  text-align: center;
+  color: #414141;
+}
+
+p, li, label {
+  font-family: "Heebo";
+  font-size: 13px;
+  color: #2B2B2B;
+}
+
+ul, .center {
   text-align: center;
   list-style-position: inside;
   line-height: 25px;
@@ -29,7 +49,7 @@ h1, ul, .center {
 #text-container {
   grid-area: 1 / 1 / 2 / 2;
   z-index: 2;
-  padding: 40px;
+  padding: 20px;
   height: 100vh;
   /*over-flow: hidden;*/
 }
@@ -82,11 +102,16 @@ h1, ul, .center {
   }
 }
 
-@media (max-width: 900px) {
-
-}
-
 @media (max-width: 700px) {
+  h1 {
+    font-size: 40px;
+    line-height: 42px;
+  }
+
+  ul {
+    line-height: 20px;
+  }
+
   .visibility {
     display: inline;
   }
