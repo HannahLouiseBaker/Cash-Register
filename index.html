@@ -150,60 +150,50 @@
 
   <body>
     <main>
-      <div id="form-container">
-      <h1>Mrs Lovell's Greengrocers</h1>
-      <p>Welcome to Mrs Lovell's Greengrocers!</p>
-      <ol>
-        <li>Fill up your basket with fresh fruit and veg</li>
-        <li>Play the part of the shopkeeper by entering the total price of the items in your basket (click 'Generate' or enter an amount yourself)</li>
-        <li>Give the shopkeeper your money</li>
-        <li>Play the part of the shopkeeper by making sure there's money in the cash register drawer (click 'Generate' or enter the amounts yourself)</li>
-        <li>The friendly shopkeeper will give you your change!</li>
-      </ol>
-      <p>Thank you for shopping at Mrs Lovell's Greengrocers!</p>
-      <form>
-        <label for="item-price">Total Price of Item(s) in Basket: </label>
-        <input id="item-price" type="text" placeholder="13.34"/>
+      <div id="text-container">
+        <p class="center">Welcome to</p>
+        <h1>Mrs Lovell's Greengrocers</h1>
         <br/>
-        <input type="button" id="generate-price" class="button" value="Generate" onclick="generatePrice()"/>
-        <br/>
-        <label for="money-given">Money Given to Shop Keeper:</label>
-        <input id="money-given" type="text" placeholder="20"/>
-        <p>Money in Cash Register Drawer:</p>
-        <label for="penny">Penny: </label>
-        <input id="penny" type="text" placeholder="£0.01"/>
-        <br/>
-        <label for="5p">5p Coin: </label>
-        <input id="5p" type="text" placeholder="£0.05"/>
-        <br/>
-        <label for="10p">10p Coin: </label>
-        <input id="10p" type="text" placeholder="£0.10"/>
-        <br/>
-        <label for="20p">20p Coin: </label>
-        <input id="20p" type="text" placeholder="£0.20"/>
-        <br/>
-        <label for="one">£1 Coin: </label>
-        <input id="one" type="text" placeholder="£1"/>
-        <br/>
-        <label for="five">£5 Note: </label>
-        <input id="five" type="text" placeholder="£5"/>
-        <br/>
-        <label for="ten">£10 Note: </label>
-        <input id="ten" type="text" placeholder="£10"/>
-        <br/>
-        <label for="twenty">£20 Note: </label>
-        <input id="twenty" type="text" placeholder="£20"/>
-        <br/>
-        <label for="one-hundred">£100 Note: </label>
-        <input id="one-hundred" type="text"/ placeholder="£100">
-        <br/>
-        <input type="button" id="generate-cash" class="button" value="Generate" onclick="generateCash()"/>
-        <br/>
-        <input type="button" id="get-change" class="button" value="Get Change" onclick="cashRegister()"/>
-      </form>
+        <ul>
+          <li>Enter the total price of the items in your basket <br class="visibility"/>('Generate' or enter manually)</li>
+          <li>Give the shopkeeper your money</li>
+          <li>Make sure there's money in the cash register drawer <br class="visibility"/>('Generate' or enter manually)</li>
+          <li>The friendly shopkeeper will give you your change!</li>
+        </ul>
+        <form id="form-container">
+          <label for="item-price" class="col1">Total Price of Item(s) in Basket: £</label>
+          <input id="item-price" class="col2" type="text" placeholder="13.34"/>
+          <br/>
+          <input type="button" id="generate-price" class="button" value="Generate" onclick="generatePrice()"/>
+          <label for="money-given" class="col1">Money Given to Shop Keeper: £</label>
+          <input id="money-given" class="col2" type="text" placeholder="20"/>
+          <br class="both-columns"/>
+          <p class="both-columns">Money in Cash Register Drawer:</p>
+          <label for="penny" class="col1">Penny: £</label>
+          <input id="penny" class="col2" type="text" placeholder="0.01"/>
+          <label for="5p" class="col1">5p Coin: £</label>
+          <input id="5p" class="col2" type="text" placeholder="0.05"/>
+          <label for="10p" class="col1">10p Coin: £</label>
+          <input id="10p" class="col2" type="text" placeholder="0.10"/>
+          <label for="20p" class="col1">20p Coin: £</label>
+          <input id="20p" class="col2" type="text" placeholder="0.20"/>
+          <label for="one" class="col1">£1 Coin: £</label>
+          <input id="one" class="col2" type="text" placeholder="1"/>
+          <label for="five" class="col1">£5 Note: £</label>
+          <input id="five" class="col2" type="text" placeholder="5"/>
+          <label for="ten" class="col1">£10 Note: £</label>
+          <input id="ten" class="col2" type="text" placeholder="10"/>
+          <label for="twenty" class="col1">£20 Note: £</label>
+          <input id="twenty" class="col2" type="text" placeholder="20"/>
+          <label for="one-hundred" class="col1">£100 Note: £</label>
+          <input id="one-hundred" class="col2" type="text"/ placeholder="100">
+          <br/>
+          <input type="button" id="generate-cash" class="button" value="Generate" onclick="generateCash()"/>
+          <input type="button" id="get-change" class="button both-columns" value="Get Change" onclick="cashRegister()"/>
+        </form>
       </div>
       <div id="background">
-        <img id="background-photo" src="background4.jpg"/>
+        <img id="background-photo" src="background3.jpg"/>
       </div>
     </main>
   </body>
