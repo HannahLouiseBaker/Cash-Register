@@ -8,6 +8,8 @@ main {
   grid-template-rows: 1fr;
   justify-content: center;
   background-color: #D2E4E8;
+  width: 100%;
+  overflow: hidden;
 }
 
 @font-face {
@@ -38,27 +40,27 @@ ul, .center {
 #background {
   grid-area: 1 / 1 / 2 / 2;
   height: 100vh;
-  /*over-flow: hidden;*/
+  width: 100%;
+  overflow: hidden;
 }
 
 #background-photo {
   height: 100vh;
-  /*over-flow: hidden;*/
 }
 
 #text-container {
   grid-area: 1 / 1 / 2 / 2;
   z-index: 2;
-  padding: 20px;
-  height: 100vh;
-  /*over-flow: hidden;*/
+  padding: 20px 5px;
+  width: 100%;
+  over-flow: hidden;
 }
 
 #form-container {
-  margin: 20px 30%;
+  margin: 20px 20%;
+  padding: 0 2%;
   display: grid;
   grid-template-columns: 50% 50%;
-  /*over-flow: hidden;*/
 }
 
 .both-columns {
@@ -73,18 +75,16 @@ ul, .center {
 }
 
 .col2 {
-  width: 50%;
+  width: 100px;
   text-align: left;
   justify-items: start;
 }
 
-#generate-price, #generate-cash {
-  width: 50%;
-  justify-items: start;
+#generate-price, #generate-cash, #get-change {
+  width: 100px;
 }
 
 #get-change {
-  width: 200px;
   margin: 10px auto;
 }
 
@@ -97,7 +97,16 @@ ul, .center {
     display: inline;
   }
 
+  #text-container {
+    background-color: #D2E4E8;
+  }
+
   #background {
+    background-color: #D2E4E8;
+    position: fixed;
+  }
+
+  #background-photo {
     display: none;
   }
 }
@@ -115,4 +124,15 @@ ul, .center {
   .visibility {
     display: inline;
   }
+
+  #form-container {
+    margin: 20px 5%;
+  }
+
+  /*#background {
+    width: 100%;
+    border-style: solid;
+    border-color: black;
+    overflow: hidden;
+  }*/
 }
