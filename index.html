@@ -42,7 +42,7 @@
       let amountDue2 = parseInt(amountDue);
 
       //Create an array for the change due, in the final format you need
-      let changeDue = [["£100 NOTE", 0], ["£20 NOTE", 0], ["£10 NOTE", 0], ["£5 NOTE", 0], ["£1 COIN", 0], ["20p COIN", 0], ["10p COIN", 0], ["5p COIN", 0], ["PENNY", 0]];
+      let changeDue = [["£100x", 0], ["£20x", 0], ["£10x", 0], ["£5x", 0], ["£1x", 0], ["20px", 0], ["10px", 0], ["5px", 0], ["1px", 0]];
 
       //Function to add to changeDue and subtract from cidCopy
       let addToChange = function() {
@@ -51,41 +51,44 @@
         }
 
         if (amountDue2 >= 10000 && cidCopy[8][1] > 0) {
-          console.log('Needs some more work(1)');
+          amountDue2 -= 10000;
+          cidCopy[8][1] -= 10000;
+          changeDue[0][1] += 1;
+          return addToChange(amountDue2);
         } else if (amountDue2 >= 2000 && cidCopy[7][1] > 0) {
           amountDue2 -= 2000;
           cidCopy[7][1] -= 2000;
-          changeDue[1][1] += 2000;
+          changeDue[1][1] += 1;
           return addToChange(amountDue2);
         } else if (amountDue2 >= 1000 && cidCopy[6][1] > 0) {
           amountDue2 -= 1000;
           cidCopy[6][1] -= 1000;
-          changeDue[2][1] += 1000;
+          changeDue[2][1] += 1;
           return addToChange(amountDue2);
         } else if (amountDue2 >= 500 && cidCopy[5][1] > 0) {
           amountDue2 -= 500;
           cidCopy[5][1] -= 500;
-          changeDue[3][1] += 500;
+          changeDue[3][1] += 1;
           return addToChange(amountDue2);
         } else if (amountDue2 >= 100 && cidCopy[4][1] > 0) {
           amountDue2 -= 100;
           cidCopy[4][1] -= 100;
-          changeDue[4][1] += 100;
+          changeDue[4][1] += 1;
           return addToChange(amountDue2);
         } else if (amountDue2 >= 20 && cidCopy[3][1] > 0) {
           amountDue2 -= 20;
           cidCopy[3][1] -= 20;
-          changeDue[5][1] += 20;
+          changeDue[5][1] += 1;
           return addToChange(amountDue2);
         } else if (amountDue2 >= 10 && cidCopy[2][1] > 0) {
           amountDue2 -= 10;
           cidCopy[2][1] -= 10;
-          changeDue[6][1] += 10;
+          changeDue[6][1] += 1;
           return addToChange(amountDue2);
         } else if (amountDue2 >= 5 && cidCopy[1][1] > 0) {
           amountDue2 -= 5;
           cidCopy[1][1] -= 5;
-          changeDue[7][1] += 5;
+          changeDue[7][1] += 1;
           return addToChange(amountDue2);
         } else if (amountDue2 >= 1 && cidCopy[0][1] > 0) {
           amountDue2 -= 1;
@@ -96,12 +99,6 @@
       }
 
       addToChange(amountDue2);
-
-      //Divide amounts by 100
-      changeDue.map(function(x) {
-        x[1] = parseFloat((x[1]/100).toFixed(2));
-        return x;
-      });
 
       //Remove zeros from changeDue and add to finalChange array
       let finalChange = [];
@@ -121,11 +118,11 @@
       }
       //Change status to "CLOSED", if applicable
       else if (amountDue === totalCID) {
-        return (alert('Here is your change ' + finalChange + 'Our till is now empty.'));
+        return (alert('Here is your change ' + finalChange.join(' ').replace(/,/g, '') + 'Our till is now empty.'));
       }
       //Change status to "OPEN" and return change, if applicable
       else if ((cash*100 - price*100) < totalCID){
-        return (alert('Here is your change: ' + finalChange));
+        return (alert('Here is your change: ' + finalChange.join(' ').replace(/,/g, '')));
       }
     }
 
@@ -143,9 +140,7 @@
       document.getElementById("ten").value = (Math.floor(Math.random() * 10) * 10);
       document.getElementById("twenty").value = (Math.floor(Math.random() * 10) * 20);
       document.getElementById("one-hundred").value = (Math.floor(Math.random() * 10) * 100);
-
     }
-
     </script>
   </head>
 
